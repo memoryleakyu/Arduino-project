@@ -13,10 +13,12 @@ while 1:
     print(incoming)
 
     if 'right' in incoming:
-        keyboard.press(Key.right)    #the press function will keep pressing the key for a short while
-        keyboard.release(Key.right)  #So release the key once its pressed
+        for i in range(4):
+            keyboard.press(Key.right)    #the press function will keep pressing the key for a short while
+            keyboard.release(Key.right)  #So release the key once its pressed
 
     if 'left' in incoming:
-        keyboard.press(Key.left)
-        keyboard.release(Key.left)
+        for i in range(4):
+            keyboard.press(Key.left)
+            keyboard.release(Key.left)
     incoming = " "  #refresh the incoming data
