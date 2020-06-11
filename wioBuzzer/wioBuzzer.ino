@@ -1029,6 +1029,7 @@ void loop()
   }
   else if (digitalRead(WIO_KEY_C) == LOW)
   {
+    song = 'starwar';
     tft.init();
     tft.setRotation(3);
     tft.setCursor(160, 120, 5);

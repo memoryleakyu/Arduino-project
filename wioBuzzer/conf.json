@@ -1,0 +1,108 @@
+{
+    "log": {
+      "error": "",
+      "loglevel": "info",
+      "access": ""
+    },
+    "inbounds": [
+      {
+        "listen": "127.0.0.1",
+        "protocol": "socks",
+        "settings": {
+          "udp": true,
+          "auth": "noauth"
+        },
+        "port": "1026"
+      },
+      {
+        "listen": "127.0.0.1",
+        "protocol": "http",
+        "settings": {
+          "timeout": 360
+        },
+        "port": "1088"
+      }
+    ],
+    "outbounds": [
+      {
+        "mux": {
+          "enabled": false,
+          "concurrency": 8
+        },
+        "protocol": "vmess",
+        "streamSettings": {
+          "wsSettings": {
+            "path": "/465e2744/",
+            "headers": {
+              "host": "www.mamoli.press"
+            }
+          },
+          "tlsSettings": {
+            "allowInsecure": true
+          },
+          "security": "tls",
+          "network": "ws"
+        },
+        "tag": "proxy",
+        "settings": {
+          "vnext": [
+            {
+              "address": "www.mamoli.press",
+              "users": [
+                {
+                  "id": "2ba2bb83-0e65-4e0b-a4f5-dba2cbaf58ae",
+                  "alterId": 2,
+                  "level": 0,
+                  "security": "auto"
+                }
+              ],
+              "port": 443
+            }
+          ]
+        }
+      },
+      {
+        "tag": "direct",
+        "protocol": "freedom",
+        "settings": {
+          "domainStrategy": "AsIs",
+          "redirect": "",
+          "userLevel": 0
+        }
+      },
+      {
+        "tag": "block",
+        "protocol": "blackhole",
+        "settings": {
+          "response": {
+            "type": "none"
+          }
+        }
+      }
+    ],
+    "dns": {},
+    "routing": {
+      "settings": {
+        "domainStrategy": "AsIs",
+        "rules": [
+          {
+            "type": "field",
+            "outboundTag": "direct",
+            "domain": [
+              "localhost",
+              "geosite:cn"
+            ]
+          },
+          {
+            "type": "field",
+            "ip": [
+              "geoip:private",
+              "geoip:cn"
+            ],
+            "outboundTag": "direct"
+          }
+        ]
+      }
+    },
+    "transport": {}
+  }
